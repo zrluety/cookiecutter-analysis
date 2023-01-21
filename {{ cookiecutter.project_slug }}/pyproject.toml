@@ -3,11 +3,11 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = '{{ cookiecutter.project_slug }}'
-version = '{{ cookiecutter.version }}'
+name = "{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
 
 [project.scripts]
-'{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
+{{ cookiecutter.project_slug }}="{{ cookiecutter.project_slug }}.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -22,24 +22,14 @@ ignore = []
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
-    ".bzr",
-    ".direnv",
     ".eggs",
     ".git",
-    ".hg",
-    ".mypy_cache",
-    ".nox",
-    ".pants.d",
     ".ruff_cache",
-    ".svn",
-    ".tox",
     ".venv",
     "__pypackages__",
     "_build",
-    "buck-out",
     "build",
     "dist",
-    "node_modules",
     "venv",
 ]
 per-file-ignores = {}
