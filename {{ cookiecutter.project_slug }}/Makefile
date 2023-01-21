@@ -37,9 +37,9 @@ create_environment:
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
 	conda create --name $(PROJECT_NAME) python=3.11
-	@echo ">>> New conda env created. Activate with:\nsource activate $(PROJECT_NAME)"
 else
 	$(PYTHON_INTERPRETER) -m venv venv
+	@echo ">>> New virtual environment created. Activate with:\nsource activate $(PROJECT_NAME)"
 endif
 
 #################################################################################

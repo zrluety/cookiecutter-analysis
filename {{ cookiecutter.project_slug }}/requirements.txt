@@ -5,9 +5,15 @@
 typer
 matplotlib
 numpy
-'{if cookiecutter.dataframe_library == "pandas"}pandas{elif cookiecutter.dataframe_library == "dask"}dask[dataframe]{elif cookiecutter.dataframe_library == "polars"}polars{endif} }'
+{% if cookiecutter.dataframe_library|lower == 'pandas' %}
 pandas
-scipy
+{% elif cookiecutter.dataframe_library|lower == 'polars' %}
+polars
+{% elif cookiecutter.dataframe_library|lower == 'dask' %}
+dask
+{% endif %}
+pyarrow
+SQLAlchemy
 
 # documentation
 Sphinx
