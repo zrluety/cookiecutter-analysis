@@ -27,17 +27,17 @@ lint:
 	ruff src/{{ cookiecutter.project_slug }}
 
 ## Set up python interpreter environment
-{ if cookiecutter.create_environment == "y" -%}
+{% if cookiecutter.create_environment == "y" %}
 setup: create_environment
 	pip install -U pip setuptools wheel
 	pip install -r requirements.txt
 	pip install -r requirements-dev.txt
-{%- else %}
+{% else %}
 setup:
 	pip install -U pip setuptools wheel
 	pip install -r requirements.txt
 	pip install -r requirements-dev.txt
-{%- endif %
+{% endif %}
 
 create_environment:
 ifeq (True,$(HAS_CONDA))
