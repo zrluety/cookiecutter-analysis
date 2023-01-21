@@ -1,4 +1,4 @@
-.PHONY: clean lint create_environment requirements
+.PHONY: clean lint setup
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -17,12 +17,6 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-## Install Python Dependencies
-requirements:
-	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-	$(PYTHON_INTERPRETER) -m pip install -r requirements-dev.txt
-
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
@@ -33,20 +27,28 @@ lint:
 	ruff src/{{ cookiecutter.project_slug }}
 
 ## Set up python interpreter environment
+{ if cookiecutter.create_environment == "y" -%}
+setup: create_environment
+	pip install -U pip setuptools wheel
+	pip install -r requirements.txt
+	pip install -r requirements-dev.txt
+{%- else %}
+setup:
+	pip install -U pip setuptools wheel
+	pip install -r requirements.txt
+	pip install -r requirements-dev.txt
+{%- endif %
+
 create_environment:
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
 	conda create --name $(PROJECT_NAME) python=3.11
+	conda activate $(PROJECT_NAME)
 else
 	$(PYTHON_INTERPRETER) -m venv venv
+	source venv/bin/activate
 	@echo ">>> New virtual environment created. Activate with:\nsource activate $(PROJECT_NAME)"
 endif
-
-#################################################################################
-# PROJECT RULES                                                                 #
-#################################################################################
-
-
 
 #################################################################################
 # Self Documenting Commands                                                     #

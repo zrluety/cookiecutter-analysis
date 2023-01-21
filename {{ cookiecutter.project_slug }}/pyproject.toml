@@ -5,6 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
+long_description = file: README.md
+long_description_content_type = text/markdown
 
 [project.scripts]
 {{ cookiecutter.project_slug }}="{{ cookiecutter.project_slug }}.cli:main"
