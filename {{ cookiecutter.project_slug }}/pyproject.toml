@@ -3,8 +3,11 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = '{{ cookiecutter.project_name }}'
-version = "0.0.1"
+name = '{{ cookiecutter.project_slug }}'
+version = '{{ cookiecutter.version }}'
+
+[project.scripts]
+'{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,0 +1,13 @@
+# local package
+-e .
+
+# external requirements
+typer
+matplotlib
+numpy
+'{if cookiecutter.dataframe_library == "pandas"}pandas{elif cookiecutter.dataframe_library == "dask"}dask[dataframe]{elif cookiecutter.dataframe_library == "polars"}polars{endif} }'
+pandas
+scipy
+
+# documentation
+Sphinx
