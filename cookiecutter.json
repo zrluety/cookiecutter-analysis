@@ -9,5 +9,5 @@
     "description": "A short description of the project.",
     "command_line_interface": "y",
     "dataframe_library": ["pandas", "polars", "dask"],
-    "create_environment": "y"
+    "create_environment": "n"
 }
