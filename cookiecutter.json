@@ -2,12 +2,7 @@
     "project_name": "Analysis Boilerplate",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "version": "0.1.0",
-    "author_name": "Your name (or your organization/company/team)",
-    "author_email": "Your email address",
-    "maintainer_name": "Your name (or your organization/company/team)",
-    "maintainer_email": "Your email address",
     "description": "A short description of the project.",
     "command_line_interface": "y",
-    "dataframe_library": ["pandas", "polars", "dask"],
     "create_environment": "n"
 }
