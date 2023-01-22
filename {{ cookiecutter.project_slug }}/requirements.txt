@@ -2,18 +2,9 @@
 -e .
 
 # external requirements
+{% if cookiecutter.command_line_interface|lower == 'y' %}
 typer
-matplotlib
-numpy
-{% if cookiecutter.dataframe_library|lower == 'pandas' %}
-pandas
-{% elif cookiecutter.dataframe_library|lower == 'polars' %}
-polars
-{% elif cookiecutter.dataframe_library|lower == 'dask' %}
-dask
 {% endif %}
-pyarrow
-SQLAlchemy
 
 # documentation
 Sphinx

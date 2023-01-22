@@ -1,4 +1,5 @@
+black
+ipython
 pytest
 pytest-cov
 ruff
-black
