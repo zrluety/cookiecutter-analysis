@@ -4,5 +4,4 @@
     "version": "0.1.0",
     "description": "A short description of the project.",
     "command_line_interface": "y",
-    "create_environment": "n"
 }
