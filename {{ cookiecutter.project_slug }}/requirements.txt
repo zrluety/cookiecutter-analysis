@@ -5,3 +5,4 @@
 {% if cookiecutter.command_line_interface|lower == 'y' %}
 typer
 {% endif %}
+python-dotenv
