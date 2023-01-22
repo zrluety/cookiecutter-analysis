@@ -5,6 +5,3 @@
 {% if cookiecutter.command_line_interface|lower == 'y' %}
 typer
 {% endif %}
-
-# documentation
-Sphinx

@@ -1,54 +1,53 @@
 .PHONY: clean lint setup
 
 #################################################################################
-# GLOBALS                                                                       #
-#################################################################################
-
-PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-PROJECT_NAME = {{ cookiecutter.project_slug }}
-
-ifeq (,$(shell which conda))
-HAS_CONDA=False
-else
-HAS_CONDA=True
-endif
-
-#################################################################################
 # COMMANDS                                                                      #
 #################################################################################
 
 ## Delete all compiled Python files
-clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+
+clean-build: ## remove build artifacts
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc: ## remove Python file artifacts
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-test: ## remove test and coverage artifacts
+	rm -f .coverage
+	rm -fr htmlcov/
+	rm -fr .pytest_cache
 
 ## Lint using ruff
-lint:
-	ruff src/{{ cookiecutter.project_slug }}
+lint/ruff:
+	ruff src/{{ cookiecutter.project_slug }} tests
 
-## Set up python interpreter environment
-{% if cookiecutter.create_environment == "y" %}
-setup: create_environment
+## Check style with black
+lint/black: ## check style with black
+	black --check src/{{ cookiecutter.project_slug }} tests
+
+lint: lint/ruff lint/black ## check style
+
+test:
+	pytest
+
+
+dist: clean ## builds source and wheel package
+	python setup.py sdist
+	python setup.py bdist_wheel
+	ls -l dist
+
+install:
 	pip install -U pip setuptools wheel
 	pip install -r requirements.txt
 	pip install -r requirements-dev.txt
-{% else %}
-setup:
-	pip install -U pip setuptools wheel
-	pip install -r requirements.txt
-	pip install -r requirements-dev.txt
-{% endif %}
-
-create_environment:
-ifeq (True,$(HAS_CONDA))
-	@echo ">>> Detected conda, creating conda environment."
-	conda create --name $(PROJECT_NAME) python=3.11
-	conda activate $(PROJECT_NAME)
-else
-	$(PYTHON_INTERPRETER) -m venv venv
-	source venv/bin/activate
-	@echo ">>> New virtual environment created. Activate with:\nsource activate $(PROJECT_NAME)"
-endif
 
 #################################################################################
 # Self Documenting Commands                                                     #
